@@ -66,8 +66,12 @@ if (isset($_POST["data"])) {
     // Request parameters to pass into payment gateway
     $request = array(
         "x_account_id" => $x_account_id,
+        "merchantCode" => $x_account_id,
         "x_api_key" => $api_key,
         "x_amount" => $order["cart"]["order"]["total"],
+        "amount" => $order["cart"]["order"]["total"],
+        "paymentType" => 1, // 1 for KNET, 2 for MPGS
+        "version" => "2.0",
         "x_currency" => $order["cart"]["currency"],
         "x_customer_billing_address1" => str_replace(PHP_EOL, ' ', $order["cart"]["order"]["billingPerson"]["street"]),
         "x_customer_billing_city" => $order["cart"]["order"]["billingPerson"]["city"],
@@ -87,6 +91,7 @@ if (isset($_POST["data"])) {
         "x_description" => "Order number". $order['cart']['order']['referenceTransactionId'],
         "x_reference" => $order['cart']['order']['referenceTransactionId'],
         "x_url_success" => $callbackUrl."&status=PAID",
+        "responseUrl" => $callbackUrl."&status=PAID",
         "x_url_error" => $callbackUrl."&status=CANCELLED",
         "x_url_cancel" => $order["returnUrl"]
       );
@@ -103,7 +108,7 @@ if (isset($_POST["data"])) {
     echo "<br/>";
 
     // Print form on a page to submit it from a button press
-    echo "<form action='https://example.paymentpage.com/checkout' method='post' id='payment_form'>";
+    echo "<form action='https://api.hesbstck.com/transaction/store' method='post' id='payment_form'>";
     foreach ($request as $name => $value) {
         echo "<input type='hidden' name='$name' value='$value'></input>";
     }
