@@ -70,7 +70,7 @@ if (isset($_POST["data"])) {
         "x_api_key" => $api_key,
         "x_amount" => $order["cart"]["order"]["total"],
         "amount" => $order["cart"]["order"]["total"],
-        "paymentType" => 1, // 1 for KNET, 2 for MPGS
+        "paymentType" => 0, // 1 for KNET, 2 for MPGS
         "version" => "2.0",
         "x_currency" => $order["cart"]["currency"],
         "x_customer_billing_address1" => str_replace(PHP_EOL, ' ', $order["cart"]["order"]["billingPerson"]["street"]),
@@ -108,7 +108,7 @@ if (isset($_POST["data"])) {
     echo "<br/>";
 
     // Print form on a page to submit it from a button press
-    echo "<form action='https://api.hesbstck.com/transaction/store' method='post' id='payment_form'>";
+    echo "<form action='https://api.hesbstck.com/checkout/indirect' method='post' id='payment_form'>";
     foreach ($request as $name => $value) {
         echo "<input type='hidden' name='$name' value='$value'></input>";
     }
