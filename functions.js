@@ -1,7 +1,7 @@
 // Initialize the application
 
 EcwidApp.init({
-  app_id: 'test-rick-payment-template', // use your application namespace
+  app_id: 'hesabe-payment-dev', // use your application namespace
   autoloadedflag: true,
   autoheight: true
 })
